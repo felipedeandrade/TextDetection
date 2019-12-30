@@ -1,19 +1,22 @@
-import subprocess
 import os
+import subprocess
+
 import pytesseract as ocr
 from PIL import Image
-import time
 
-def captura(arq,fps):
+
+# captura dos stills utilizando ffmpeg
+def captura(arq, fps):
     subprocess.call(f'ffmpeg -y -i {arq} -vf fps=1/{fps} "{fps}.jpg" ')
+
 
 def analise(fps):
     img = Image.open(str(fps) + '.jpg').crop((0, 480, 1280, 720))
-    x = ocr.image_to_data(img,lang='eng+por')
+    x = ocr.image_to_data(img, lang='eng+por')
     tabela = x.split()
-    del tabela[0:12] #apaga a linha dos cabeçalhos
-    y = len(tabela) #pega o tamanho da lista
-    colunas = (y//11)
+    del tabela[0:12]  # apaga a linha dos cabeçalhos
+    y = len(tabela)  # pega o tamanho da lista
+    colunas = (y // 11)
     inicio = 0
     for i in range(colunas):
         final = inicio + len(tabela[i::colunas])
