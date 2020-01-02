@@ -23,9 +23,9 @@ def analiseImage(file, position, width=480, height=480, minConfidence=0.5):
     x = metadados(file)
     imgImport = cv2.imread(file)
     if position == "top":
-        image = imgImport[0:(iheight / 2), 0:x.iwidth]
+        image = imgImport[0:(x.iheight / 2), 0:x.iwidth]
     elif position == "bottom":
-        image = imgImport[(iheight / 2):x.iheight, 0:x.iwidth]
+        image = imgImport[(x.iheight / 2):x.iheight, 0:x.iwidth]
     elif position == "both":
         image = imgImport
     orig = image.copy()
@@ -133,6 +133,7 @@ def analiseImage(file, position, width=480, height=480, minConfidence=0.5):
         cv2.rectangle(orig, (startX, startY), (endX, endY), (0, 255, 0), 2)
     print(file)
     return (file, boxes, orig)
+
 
 def processarImagem(file, boxes, orig):
     if len(boxes) == 0:

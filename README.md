@@ -1,2 +1,0 @@
-# TextDetection
- Detecção de texto
