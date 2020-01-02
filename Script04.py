@@ -1,20 +1,25 @@
-from imutils.object_detection import non_max_suppression
-from _classes.metadados import metadados
-import numpy as np
-import subprocess
 import glob
 import os
+import subprocess
 import time
+
 import cv2
+import numpy as np
+from imutils.object_detection import non_max_suppression
+
+from _classes.metadados import metadados
+
 
 def ffmpegStill(file, fileName):
     x = metadados(file)
     fps = x.gframerate
     segundos = float(input("Captura de segundos: "))
     fps_scan = float(fps) / (float(fps) * segundos)
-    subprocess.call(f'ffmpeg -y -i {file} -vf fps={fps_scan} -f image2 -frame_pts true "./{fileName}/{fileName}_%d.jpg" ')
+    subprocess.call(
+        f'ffmpeg -y -i {file} -vf fps={fps_scan} -f image2 -frame_pts true "./{fileName}/{fileName}_%d.jpg" ')
 
-def analiseImage(file,width=320,height=320,minConfidence=12,):
+
+def analiseImage(file, width=320, height=320, minConfidence=12, ):
     # load the input image and grab the image dimensions
     image = cv2.imread(file)
     orig = image.copy()
@@ -150,4 +155,5 @@ def run(file):
     end_processo = time.time()
     print("Tempo total de processamento: {:.2f}min".format((end_processo - start_processo)/60))
 
-run("arquivodeteste.mp4")
+
+run("movie-test.mp4")
