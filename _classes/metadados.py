@@ -19,3 +19,10 @@ class metadados:
                 self.iheight = track.height
                 self.iwidth = track.width
                 self.isize = track.stream_size
+            elif track.track_type == 'Audio':
+                self.abit_rate = track.bit_depth
+                self.abit_rate_mode = track.bit_rate_mode
+                self.achannels = track.channel_s
+                self.duration = track.duration
+                self.format = track.format
+                self.samplingrate = track.samplingrate
