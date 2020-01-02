@@ -20,11 +20,12 @@ def ffmpegStill(file, fileName):
 
 def analiseImage(file, position, width=480, height=480, minConfidence=0.5):
     # load the input image and grab the image dimensions
+    x = metadados(file)
     imgImport = cv2.imread(file)
     if position == "top":
-        image = imgImport[0:540, 0:1920]
+        image = imgImport[0:(iheight / 2), 0:x.iwidth]
     elif position == "bottom":
-        image = imgImport[540:1080, 0:1920]
+        image = imgImport[(iheight / 2):x.iheight, 0:x.iwidth]
     elif position == "both":
         image = imgImport
     orig = image.copy()
@@ -58,7 +59,6 @@ def analiseImage(file, position, width=480, height=480, minConfidence=0.5):
     start = time.time()
     net.setInput(blob)
     (scores, geometry) = net.forward(layerNames)
-    # print(net.forward(layerNames))
     end = time.time()
 
     # show timing information on text prediction
@@ -68,11 +68,8 @@ def analiseImage(file, position, width=480, height=480, minConfidence=0.5):
     # initialize our set of bounding box rectangles and corresponding
     # confidence scores
     (numRows, numCols) = scores.shape[2:4]
-    print(numRows, numCols)
     rects = []
-    print(rects)
     confidences = []
-    print(confidences)
 
     # loop over the number of rows
     for y in range(0, numRows):
@@ -137,13 +134,11 @@ def analiseImage(file, position, width=480, height=480, minConfidence=0.5):
     print(file)
     return (file, boxes, orig)
 
-
 def processarImagem(file, boxes, orig):
     if len(boxes) == 0:
         os.remove(file)
         print("0 Informação")
     else:
         print("Mais informações")
-        # os.remove(file)
         cv2.imwrite(file, orig)
         # cv2.waitKey(0)

@@ -14,3 +14,8 @@ class metadados:
                 self.vwidth = track.width
                 self.vheight = track.height
                 self.vscantype = track.scan_type
+            elif track.track_type == 'Image':
+                self.iformat = track.format
+                self.iheight = track.height
+                self.iwidth = track.width
+                self.isize = track.stream_size

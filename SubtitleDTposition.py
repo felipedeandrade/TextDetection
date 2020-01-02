@@ -27,4 +27,4 @@ def main(file, position):
     print("Tempo total de processamento: {:.2f}min".format((end_processo - start_processo) / 60))
 
 
-main("movie-test.mp4", "both")
+main("arquivodeteste.mp4", "both")
